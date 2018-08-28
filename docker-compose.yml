@@ -18,7 +18,8 @@ services:
             - php
             - mysqldb
     php:
-        image: nanoninja/php-fpm:${PHP_VERSION}
+        build: https://github.com/chadkouse/php-fpm.git#5.6
+        image: chadkouse/php-fpm:${PHP_VERSION}
         restart: always
         volumes:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
@@ -54,3 +55,7 @@ services:
             - "8989:3306"
         volumes:
             - "./data/db/mysql:/var/lib/mysql"
+    memcached:
+        image: memcached
+        ports:
+            - "11211:11211"

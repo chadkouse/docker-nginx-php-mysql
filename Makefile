@@ -31,7 +31,7 @@ apidoc:
 	@make resetOwner
 
 clean:
-	@rm -Rf data/db/mysql/*
+#	@rm -Rf data/db/mysql/*
 	@rm -Rf $(MYSQL_DUMPS_DIR)/*
 	@rm -Rf web/app/vendor
 	@rm -Rf web/app/composer.lock
@@ -51,7 +51,7 @@ docker-start: init
 
 docker-stop:
 	@docker-compose down -v
-	@make clean
+	#@make clean
 
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=$(NGINX_HOST)" jacoelho/generate-certificate
