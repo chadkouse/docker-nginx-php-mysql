@@ -3,6 +3,7 @@
 .DS_Store
 
 # Application
+web
 web/app/composer.json
 web/app/composer.lock
 web/app/vendor/
