@@ -21,6 +21,7 @@ help:
 	@echo "  mysql-dump          Create backup of all databases"
 	@echo "  mysql-restore       Restore backup of all databases"
 	@echo "  phpmd               Analyse the API with PHP Mess Detector"
+	@echo "  cache-clean				 Clean magento cache"
 	@echo "  test                Test application"
 
 init:
@@ -72,6 +73,10 @@ phpmd:
 	./app/vendor/bin/phpmd \
 	./app/src \
 	text cleancode,codesize,controversial,design,naming,unusedcode
+
+cache-clean:
+	@docker-compose exec -T php \
+	php n98-magerun.phar cache:clean
 
 test: code-sniff
 	@docker-compose exec -T php ./app/vendor/bin/phpunit --colors=always --configuration ./app/
