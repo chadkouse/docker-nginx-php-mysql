@@ -22,6 +22,7 @@ help:
 	@echo "  mysql-restore       Restore backup of all databases"
 	@echo "  phpmd               Analyse the API with PHP Mess Detector"
 	@echo "  cache-clean				 Clean magento cache"
+	@echo "  php-restart				 Restart PHP"
 	@echo "  test                Test application"
 
 init:
@@ -55,7 +56,7 @@ docker-stop:
 	#@make clean
 
 gen-certs:
-	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=$(NGINX_HOST)" jacoelho/generate-certificate
+	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=$(NGINX_HOST)" chadkouse/generate-certificate
 
 logs:
 	@docker-compose logs -f
@@ -75,6 +76,10 @@ phpmd:
 	text cleancode,codesize,controversial,design,naming,unusedcode
 
 cache-clean:
+	@docker-compose exec -T php \
+	php n98-magerun.phar cache:clean
+
+restart-php:
 	@docker-compose exec -T php \
 	php n98-magerun.phar cache:clean
 
