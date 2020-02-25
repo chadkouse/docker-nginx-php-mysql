@@ -20,6 +20,7 @@ help:
 	@echo "  logs                Follow log output"
 	@echo "  mysql-dump          Create backup of all databases"
 	@echo "  mysql-restore       Restore backup of all databases"
+	@echo "  mysql-fetchdb       Fetch latest backup from cloud"
 	@echo "  phpmd               Analyse the API with PHP Mess Detector"
 	@echo "  cache-clean				 Clean magento cache"
 	@echo "  php-restart				 Restart PHP"
@@ -68,6 +69,9 @@ mysql-dump:
 
 mysql-restore:
 	@docker exec -i $(shell docker-compose ps -q mysqldb) mysql -u"$(MYSQL_ROOT_USER)" -p"$(MYSQL_ROOT_PASSWORD)" < $(MYSQL_DUMPS_DIR)/db.sql 2>/dev/null
+
+mysql-fetchdb:
+	@$(shell pushd $(MYSQL_DUMPS_DIR) && rm -Rf db.* && wget https://s3.amazonaws.com/adkocdn/s/db.zip && unzip db.zip)
 
 phpmd:
 	@docker-compose exec -T php \
