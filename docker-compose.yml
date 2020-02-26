@@ -18,7 +18,7 @@ services:
             - php
             - mysqldb
     php:
-        build: https://github.com/chadkouse/php-fpm.git#5.6
+        build: https://github.com/chadkouse/php-fpm.git#5.6.32
         image: chadkouse/php-fpm:${PHP_VERSION}
         restart: always
         volumes:

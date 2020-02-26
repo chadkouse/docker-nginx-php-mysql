@@ -71,7 +71,8 @@ mysql-restore:
 	@docker exec -i $(shell docker-compose ps -q mysqldb) mysql -u"$(MYSQL_ROOT_USER)" -p"$(MYSQL_ROOT_PASSWORD)" < $(MYSQL_DUMPS_DIR)/db.sql 2>/dev/null
 
 mysql-fetchdb:
-	@$(shell pushd $(MYSQL_DUMPS_DIR) && rm -Rf db.* && wget https://s3.amazonaws.com/adkocdn/s/db.zip && unzip db.zip)
+	@mkdir -p $(MYSQL_DUMPS_DIR)
+	@(eval echo "Downloading the latest db" && pushd $(MYSQL_DUMPS_DIR) && rm -Rf db.* && wget https://s3.amazonaws.com/adkocdn/s/db.zip && unzip db.zip && echo "Done, you should now run make mysql-restore to restore this new db dump")
 
 phpmd:
 	@docker-compose exec -T php \
