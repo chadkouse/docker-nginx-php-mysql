@@ -74,6 +74,9 @@ mysql-fetchdb:
 	@mkdir -p $(MYSQL_DUMPS_DIR)
 	@(eval echo "Downloading the latest db" && pushd $(MYSQL_DUMPS_DIR) && rm -Rf db.* && wget https://s3.amazonaws.com/adkocdn/s/db.zip && unzip db.zip && echo "Done, you should now run make mysql-restore to restore this new db dump")
 
+mysql-shell:
+	@docker-compose exec mysqldb sh
+
 phpmd:
 	@docker-compose exec -T php \
 	./app/vendor/bin/phpmd \
