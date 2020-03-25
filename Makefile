@@ -85,8 +85,7 @@ cache-clean:
 	php n98-magerun.phar cache:clean
 
 restart-php:
-	@docker-compose exec -T php \
-	php n98-magerun.phar cache:clean
+	@docker-compose restart php
 
 test: code-sniff
 	@docker-compose exec -T php ./app/vendor/bin/phpunit --colors=always --configuration ./app/
