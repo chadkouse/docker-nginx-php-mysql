@@ -20,10 +20,13 @@ services:
     php:
         build: https://github.com/chadkouse/php-fpm.git#5.6.32
         image: chadkouse/php-fpm:${PHP_VERSION}
+        tty: true
         restart: always
         volumes:
-            - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./web:/var/www/html"
+            - "./etc/php/php.ini:/etc/php/php.ini"
+            - "./etc/php/www.conf:/etc/php-fpm-5.6.d/www.conf"
+        command: /usr/sbin/php-fpm -F
     composer:
         image: "composer"
         volumes:
