@@ -70,10 +70,10 @@ sudo apt install build-essential
 
 * [Nginx](https://hub.docker.com/_/nginx/)
 * [MySQL](https://hub.docker.com/_/mysql/)
-* [PHP-FPM](https://hub.docker.com/r/nanoninja/php-fpm/)
+* [PHP-FPM](https://github.com/chadkouse/php-fpm/tree/5.6.32)
 * [Composer](https://hub.docker.com/_/composer/)
 * [PHPMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
-* [Generate Certificate](https://hub.docker.com/r/jacoelho/generate-certificate/)
+* [Generate Certificate](https://github.com/chadkouse/docker-generate-certificate)
 
 You should be careful when installing third party web servers such as MySQL or Nginx.
 
@@ -93,7 +93,7 @@ ___
 To install [Git](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git), download it and install following the instructions :
 
 ```sh
-git clone https://github.com/nanoninja/docker-nginx-php-mysql.git
+git clone https://github.com/chadkouse/docker-nginx-php-mysql.git
 ```
 
 Go to the project directory :
@@ -166,7 +166,7 @@ If you modify the host name, do not forget to add it to the `/etc/hosts` file.
 
 ___
 
-## Configure Xdebug
+## Configure Xdebug (optional)
 
 If you use another IDE than [PHPStorm](https://www.jetbrains.com/phpstorm/) or [Netbeans](https://netbeans.org/), go to the [remote debugging](https://xdebug.org/docs/remote) section of Xdebug documentation.
 
@@ -236,6 +236,7 @@ When developing, you can use [Makefile](https://en.wikipedia.org/wiki/Make_(soft
 | gen-certs     | Generate SSL certificates for `nginx`        |
 | logs          | Follow log output                            |
 | mysql-dump    | Create backup of all databases               |
+| mysql-fetch   | Pull latest db backup from the cloud         |
 | mysql-restore | Restore backup of all databases              |
 | phpmd         | Analyse the API with PHP Mess Detector       |
 | test          | Test application with phpunit                |
@@ -331,6 +332,7 @@ source .env && sudo docker exec $(sudo docker-compose ps -q mysqldb) mysqldump -
 ```
 
 #### Restoring a backup of all databases
+You can pull a copy of the latest db backup by using the `mysql-fetchdb` operation in the makefile
 
 ```sh
 source .env && sudo docker exec -i $(sudo docker-compose ps -q mysqldb) mysql -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" < "data/db/dumps/db.sql"
